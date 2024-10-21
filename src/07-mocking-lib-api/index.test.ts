@@ -2,12 +2,11 @@
 import axios from 'axios';
 import { throttledGetDataFromApi } from './index';
 
-// Mock axios module
 jest.mock('axios');
 
 describe('throttledGetDataFromApi', () => {
   beforeEach(() => {
-    jest.clearAllMocks(); // Clear any previous mocks before each test
+    jest.clearAllMocks();
   });
 
   test('should create instance with provided base url', async () => {
@@ -37,8 +36,16 @@ describe('throttledGetDataFromApi', () => {
   });
 
   test('should return response data from API', async () => {
+    const mockResponseData = { id: 100, name: 'Alice' };
+    const mockAxiosInstance = {
+      get: jest.fn().mockResolvedValue({ data: mockResponseData }),
+    };
+    (axios.create as jest.Mock) = jest.fn().mockReturnValue(mockAxiosInstance);
 
+    const testPath = '/users/1';
+    const result = await throttledGetDataFromApi(testPath);
+
+    await throttledGetDataFromApi.flush();
+    expect(result).toEqual(mockResponseData);
   });
-
-
 });
