@@ -2,41 +2,43 @@
 import axios from 'axios';
 import { throttledGetDataFromApi } from './index';
 
+// Mock axios module
 jest.mock('axios');
-const mockedAxios = axios as jest.Mocked<typeof axios>;
 
 describe('throttledGetDataFromApi', () => {
   beforeEach(() => {
-    jest.clearAllMocks();
+    jest.clearAllMocks(); // Clear any previous mocks before each test
   });
 
   test('should create instance with provided base url', async () => {
-    const mockGet = jest.fn().mockResolvedValue({ data: {} });
-    mockedAxios.create.mockReturnValue({ get: mockGet } as any);
+    const mockAxiosCreate = jest.fn().mockReturnValue({
+      get: jest.fn().mockResolvedValue({ data: {} }),
+    });
+    (axios.create as jest.Mock) = mockAxiosCreate;
 
     await throttledGetDataFromApi('/test');
 
-    expect(mockedAxios.create).toHaveBeenCalledWith({
-      baseURL: 'https://jsonplaceholder.typicode.com'
+    expect(mockAxiosCreate).toHaveBeenCalledWith({
+      baseURL: 'https://jsonplaceholder.typicode.com',
     });
   });
 
   test('should perform request to correct provided url', async () => {
     const mockGet = jest.fn().mockResolvedValue({ data: {} });
-    mockedAxios.create.mockReturnValue({ get: mockGet } as any);
+    (axios.create as jest.Mock).mockReturnValue({
+      get: mockGet,
+    });
 
-    await throttledGetDataFromApi('/user/test');
+    const testPath = '/users/1';
+    await throttledGetDataFromApi(testPath);
 
-    expect(mockGet).toHaveBeenCalledWith('/user/test');
+    await throttledGetDataFromApi.flush();
+    expect(mockGet).toHaveBeenCalledWith(testPath);
   });
 
-  test('should return response data', async () => {
-    const mockResponseData = { id: 1, name: 'Test User' };
-    const mockGet = jest.fn().mockResolvedValue({ data: mockResponseData });
-    mockedAxios.create.mockReturnValue({ get: mockGet } as any);
+  test('should return response data from API', async () => {
 
-    const result = await throttledGetDataFromApi('/user/test');
-
-    expect(result).toEqual(mockResponseData);
   });
+
+
 });

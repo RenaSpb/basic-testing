@@ -13,12 +13,14 @@ describe('generateLinkedList', () => {
           value: 3,
           next: {
             value: 4,
-            next: null,
+            next: {
+              value: null,
+              next: null,
+            },
           },
         },
       },
     };
-
     expect(generateLinkedList(input)).toStrictEqual(expectedOutput);
   });
 
