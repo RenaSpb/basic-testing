@@ -1,10 +1,14 @@
-/* eslint-disable prettier/prettier */
-
-import { throwError, throwCustomError, resolveValue, MyAwesomeError, rejectCustomError } from './index';
+import {
+  throwError,
+  throwCustomError,
+  resolveValue,
+  MyAwesomeError,
+  rejectCustomError,
+} from './index';
 
 describe('resolveValue', () => {
   test('should resolve provided value', async () => {
-    const value = 36
+    const value = 36;
     const result = await resolveValue(value);
     expect(result).toBe(value);
   });

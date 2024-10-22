@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import { mockOne, mockTwo, mockThree, unmockedFunction } from './index';
 
 jest.mock('./index', () => {

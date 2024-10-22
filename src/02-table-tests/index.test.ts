@@ -1,5 +1,4 @@
-/* eslint-disable prettier/prettier */
-import {  simpleCalculator, Action } from './index';
+import { simpleCalculator, Action } from './index';
 
 const testCases = [
   { a: 1, b: 2, action: Action.Add, expected: 3 },
@@ -25,6 +24,6 @@ describe('simpleCalculator', () => {
     ({ a, b, action, expected }) => {
       const result = simpleCalculator({ a, b, action });
       expect(result).toEqual(expected);
-    }
+    },
   );
 });

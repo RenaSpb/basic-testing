@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import { simpleCalculator, Action } from './index';
 
 describe('simpleCalculator tests', () => {
@@ -33,8 +32,7 @@ describe('simpleCalculator tests', () => {
   });
 
   test('should return null for invalid arguments', () => {
-    const result = simpleCalculator({ a: "8", b: 2, action: 'invalid' });
+    const result = simpleCalculator({ a: '8', b: 2, action: 'invalid' });
     expect(result).toBe(null);
   });
-
 });

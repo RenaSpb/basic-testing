@@ -1,5 +1,9 @@
-/* eslint-disable prettier/prettier */
-import { getBankAccount, InsufficientFundsError, TransferFailedError, SynchronizationFailedError } from './index';
+import {
+  getBankAccount,
+  InsufficientFundsError,
+  TransferFailedError,
+  SynchronizationFailedError,
+} from './index';
 
 describe('BankAccount', () => {
   test('should create account with initial balance', () => {
@@ -10,7 +14,9 @@ describe('BankAccount', () => {
   test('should throw InsufficientFundsError error when withdrawing more than balance', () => {
     const account = getBankAccount(1000);
     expect(() => account.withdraw(1500)).toThrow(InsufficientFundsError);
-    expect(() => account.withdraw(1500)).toThrow(`Insufficient funds: cannot withdraw more than ${account.getBalance()}`);
+    expect(() => account.withdraw(1500)).toThrow(
+      `Insufficient funds: cannot withdraw more than ${account.getBalance()}`,
+    );
   });
 
   test('should throw error when transferring more than balance', () => {
@@ -27,20 +33,20 @@ describe('BankAccount', () => {
 
   test('should deposit money', () => {
     const account = getBankAccount(1000);
-    account.deposit(100)
+    account.deposit(100);
     expect(account.getBalance()).toBe(1100);
   });
 
   test('should withdraw money', () => {
     const account = getBankAccount(1000);
-    account.withdraw(100)
+    account.withdraw(100);
     expect(account.getBalance()).toBe(900);
   });
 
   test('should transfer money', () => {
     const account1 = getBankAccount(1000);
     const account2 = getBankAccount(100);
-    account1.transfer(200, account2)
+    account1.transfer(200, account2);
     expect(account1.getBalance()).toBe(800);
     expect(account2.getBalance()).toBe(300);
   });

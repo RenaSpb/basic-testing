@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import { readFileAsynchronously, doStuffByTimeout, doStuffByInterval } from '.';
 import { join } from 'path';
 import { existsSync } from 'fs';
@@ -85,7 +84,6 @@ describe('doStuffByInterval', () => {
 });
 
 describe('readFileAsynchronously', () => {
-
   beforeEach(() => {
     jest.resetAllMocks();
   });
@@ -104,7 +102,9 @@ describe('readFileAsynchronously', () => {
 
   test('should return file content if file exists', async () => {
     (existsSync as jest.MockedFunction<typeof existsSync>).mockReturnValue(true);
-    (readFile as jest.MockedFunction<typeof readFile>).mockResolvedValue(Buffer.from('file content'));
+    (readFile as jest.MockedFunction<typeof readFile>).mockResolvedValue(
+      Buffer.from('file content'),
+    );
     const result = await readFileAsynchronously('any.txt');
     expect(result).toBe('file content');
   });

@@ -1,14 +1,14 @@
-/* eslint-disable prettier/prettier */
 import axios from 'axios';
 import { throttledGetDataFromApi } from './index';
 
 jest.mock('axios');
 jest.mock('lodash', () => ({
   throttle: jest.fn((fn) => {
-    const throttled = (...args: any[]) => fn(...args);
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call,@typescript-eslint/no-unsafe-return
+    const throttled = (...args: never[]) => fn(...args);
     throttled.flush = jest.fn();
     return throttled;
-  })
+  }),
 }));
 
 describe('throttledGetDataFromApi', () => {
@@ -49,6 +49,7 @@ describe('throttledGetDataFromApi', () => {
       get: mockGet,
     });
 
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     const result = await throttledGetDataFromApi('/users/1');
     await throttledGetDataFromApi.flush();
 
